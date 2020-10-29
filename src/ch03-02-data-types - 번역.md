@@ -1,24 +1,15 @@
-## Data Types
+## 데이터 타입
 
-Every value in Rust is of a certain *data type*, which tells Rust what kind of
-data is being specified so it knows how to work with that data. We’ll look at
-two data type subsets: scalar and compound.
+러스트의 모든 값은 특정한 *데이터 타입*을 가지고 있고, 데이터 타입은 러스트에게 어떤 종류의 데이터가 지정될지 알려 어떻게 데이터를 처리할지 알려줍니다. 우리는 스칼라  타입(단 하나의 값만을 저장할 수 있음)과 컴파운드 타입(두 개 이상의 값을 저장할 수 있음)이라는 데이터 타입의 부분집합에 대해 살펴불 것입니다.
 
-Keep in mind that Rust is a *statically typed* language, which means that it
-must know the types of all variables at compile time. The compiler can usually
-infer what type we want to use based on the value and how we use it. In cases
-when many types are possible, such as when we converted a `String` to a numeric
-type using `parse` in the [“Comparing the Guess to the Secret Number”]
-[comparing-the-guess-to-the-secret-number]<!-- ignore --> section in Chapter 2,
-we must add a type annotation, like this:
+러스트가 *정적 타입 언어*이기 때문에, 모든 변수의 타입을 컴파일 시에 알아야 한다는 점을 알아두세요. 컴파일러는 일반적으로 그 값을 기반으로 무슨 타입을 사용하고 싶은지 추론할 수 있습니다. 2장의 ["Comparing the Guess to the Secret Number"]
+[comparing-the-guess-to-the-secret-number]<!-- ignore -->>에서와 같이 `parse`로 `String`을 수 타입으로 변환할 때는 여러 타입이 가능하기 때문에, 다음과 같이 타입 어노테이션을 추가해야 합니다.
 
 ```rust
 let guess: u32 = "42".parse().expect("Not a number!");
 ```
 
-If we don’t add the type annotation here, Rust will display the following
-error, which means the compiler needs more information from us to know which
-type we want to use:
+만약에 타입 어노테이션을 추가하지 않는다면, 우리가 사용하고 싶은 타입의 종류를 알아야 한다는 내용의 에러를 다음과 같이 보여줄 것입니다.
 
 ```text
 error[E0282]: type annotations needed
@@ -31,27 +22,30 @@ error[E0282]: type annotations needed
   |         consider giving `guess` a type
 ```
 
-You’ll see different type annotations for other data types.
+```text
+에러[E0282]: 타입 어노테이션이 필요합니다
+ --> src/main.rs:2:9
+  |
+2 |     let guess = "42".parse().expect("Not a number!");
+  |         ^^^^^
+  |         |
+  |         `_`에 대한 타입 추론이 불가능합니다
+  |         `guess`에게 타입을 주는 것을 고려해보세요
+```
 
-### Scalar Types
+다른 데이터 타입에게는 다른 타입 어노테이션이 보일 것입니다.
 
-A *scalar* type represents a single value. Rust has four primary scalar types:
-integers, floating-point numbers, Booleans, and characters. You may recognize
-these from other programming languages. Let’s jump into how they work in Rust.
+### 스칼라 타입
 
-#### Integer Types
+스칼라 타입은 한개의 값을 표현합니다. 러스트는 네 개의 주된 스칼라 타입을 가지고 있는데, 정수, 부동(떠다니는) 소수점수, 부울 대수, 그리고 문자입니다. 아마 다른 프로그래밍 언어에서도 이들을 볼 수 있을 겁니다. 러스트에서는 어떻게 작동하는지 알아봅시다.
 
-An *integer* is a number without a fractional component. We used one integer
-type in Chapter 2, the `u32` type. This type declaration indicates that the
-value it’s associated with should be an unsigned integer (signed integer types
-start with `i`, instead of `u`) that takes up 32 bits of space. Table 3-1 shows
-the built-in integer types in Rust. Each variant in the Signed and Unsigned
-columns (for example, `i16`) can be used to declare the type of an integer
-value.
+#### 정수 타입
 
-<span class="caption">Table 3-1: Integer Types in Rust</span>
+*정수*는 분모가 1인 수입니다. 우리는 2장에서 한 가지 정수 타입인 `u32`타입을 사용했습니다. 이 타입 선언은 저장될 값이 부호 없는 정수여야 하고(부호 있는 정수 타입은 `u` 대신 `i`로 시작합니다) 32비트의 공간을 차지한다는 것을 의미합니다. 표 3-1은 러스트에 자체 내장된 정수 타입을 보여줍니다. 부호 있음 열과 부호 없음 열 각각의 변종들은(예를 들면 `i16`) 정수 타입을 선언하는데 쓰일 수 있습니다.
 
-| Length  | Signed  | Unsigned |
+<span class="caption">표 3-1: 러스트의 정수 타입</span>
+
+|  길이   |부호 있음 | 부호 없음 |
 |---------|---------|----------|
 | 8-bit   | `i8`    | `u8`     |
 | 16-bit  | `i16`   | `u16`    |
