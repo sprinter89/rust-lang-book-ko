@@ -54,43 +54,25 @@ error[E0282]: type annotations needed
 | 128-bit | `i128`  | `u128`   |
 | arch    | `isize` | `usize`  |
 
-Each variant can be either signed or unsigned and has an explicit size.
-*Signed* and *unsigned* refer to whether it’s possible for the number to be
-negative or positive—in other words, whether the number needs to have a sign
-with it (signed) or whether it will only ever be positive and can therefore be
-represented without a sign (unsigned). It’s like writing numbers on paper: when
-the sign matters, a number is shown with a plus sign or a minus sign; however,
-when it’s safe to assume the number is positive, it’s shown with no sign.
-Signed numbers are stored using [two’s complement](https://en.wikipedia.org/wiki/Two%27s_complement) representation.
+각각의 변종들은 부호가 있거나 없고 명시적인 크기를 가지고 있습니다. *부호 있음*과 *부호 없음*은 음수가 되는 것이 가능하다와 불가능하다로 바꿔 부를 수 있고, 숫자에 부호가 필요한지와(부호 있음) 항상 양수만 될 것이기에 부호가 필요없으므로 부호 없이 표현할 수 있습니다(부호 없음). 종이에 숫자를 쓰는 것과 비슷한데, 부호가 중요할 때는 + 부호나 - 부호를 사용합니다. 하지만, 양수라고 추측해도 괜찮을 때에는, 부호를 사용하지 않습니다. 부호 있는 수는 [2의 보수](https://en.wikipedia.org/wiki/Two%27s_complement)를 사용하여 저장됩니다.
 
-Each signed variant can store numbers from -(2<sup>n - 1</sup>) to 2<sup>n -
-1</sup> - 1 inclusive, where *n* is the number of bits that variant uses. So an
-`i8` can store numbers from -(2<sup>7</sup>) to 2<sup>7</sup> - 1, which equals
--128 to 127. Unsigned variants can store numbers from 0 to 2<sup>n</sup> - 1,
-so a `u8` can store numbers from 0 to 2<sup>8</sup> - 1, which equals 0 to 255.
+각각의 부호 있는 변종들은 -(2<sup>n - 1</sup>)에서 2<sup>n - 1</sup> - 1까지 저장할 수 있습니다. *n*은 변종이 사용하는 비트 수입니다. 따라서 `i8`은 -(2<sup>7</sup>)에서 2<sup>7</sup> - 1까지, 즉 -128부터 127까지의 수를 저장할 수 있습니다. 부호 없는 변종들은 0에서 2<sup>n</sup> - 1까지 저장할 수 있으며, 따라서 `u8`은 0에서 2<sup>8</sup> - 1까지 저장할 수 있고, 이는 0에서 255까지와 같습니다.
 
-Additionally, the `isize` and `usize` types depend on the kind of computer your
-program is running on: 64 bits if you’re on a 64-bit architecture and 32 bits
-if you’re on a 32-bit architecture.
+추가적으로, `isize`와 `usize`타입은 프로그램이 작동하는 종류에 따라 다릅니다. 64-비트 아키텍쳐라면 64비트, 32-비트 운영체제라면 32비트가 됩니다.
 
-You can write integer literals in any of the forms shown in Table 3-2. Note
-that all number literals except the byte literal allow a type suffix, such as
-`57u8`, and `_` as a visual separator, such as `1_000`.
+정수 리터럴은 표 3-2와 같이 어떤 형태로도 쓸 수 있습니다. 바이트 리터럴을 제외한 다른 모든 수 리터럴은 `57u8`과 같이 타입 접미사를 사용할 수 있고, `1_000`과 같이 `_`를 시각적 분리자로 사용할 수 있습니다.
 
-<span class="caption">Table 3-2: Integer Literals in Rust</span>
+<span class="caption">표 3-2: 러스트의 정수 리터럴</span>
 
-| Number literals  | Example       |
+|     수 리터럴     |     예시      |
 |------------------|---------------|
-| Decimal          | `98_222`      |
-| Hex              | `0xff`        |
-| Octal            | `0o77`        |
-| Binary           | `0b1111_0000` |
-| Byte (`u8` only) | `b'A'`        |
+| 10진수           | `98_222`      |
+| 16진수           | `0xff`        |
+| 8진수            | `0o77`        |
+| 2진수            | `0b1111_0000` |
+| 바이트 (`u8` only) | `b'A'`        |
 
-So how do you know which type of integer to use? If you’re unsure, Rust’s
-defaults are generally good choices, and integer types default to `i32`: this
-type is generally the fastest, even on 64-bit systems. The primary situation in
-which you’d use `isize` or `usize` is when indexing some sort of collection.
+그럼 어떤 타입의 정수를 써야 할까요? 확신이 서지 않는다면, 러스트의 기본값이 일반적으로 좋은 선택이고, 정수 타입의 기본값은 `i32`입니다. 이 타입이 64-비트 체제에서도 일반적으로 가장 빠릅니다. `isize`나 `usize`를 사용하는 주된 상황은 어떤 종류의 컬렉션을 색인할 때입니다.
 
 > ##### Integer Overflow
 >
