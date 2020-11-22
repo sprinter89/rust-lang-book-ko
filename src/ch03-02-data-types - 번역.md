@@ -12,17 +12,6 @@ let guess: u32 = "42".parse().expect("Not a number!");
 만약에 타입 어노테이션을 추가하지 않는다면, 우리가 사용하고 싶은 타입의 종류를 알아야 한다는 내용의 에러를 다음과 같이 보여줄 것입니다.
 
 ```text
-error[E0282]: type annotations needed
- --> src/main.rs:2:9
-  |
-2 |     let guess = "42".parse().expect("Not a number!");
-  |         ^^^^^
-  |         |
-  |         cannot infer type for `_`
-  |         consider giving `guess` a type
-```
-
-```text
 에러[E0282]: 타입 어노테이션이 필요합니다
  --> src/main.rs:2:9
   |
